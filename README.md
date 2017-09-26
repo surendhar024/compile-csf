@@ -17,7 +17,7 @@ Requirements for running this tool from a management station:
 * [Secure Shell 2 extension for PHP](http://php.net/manual/en/book.ssh2.php): Required for deployment.
 * [YAML extension for PHP](http://php.net/manual/en/book.yaml.php): Optional, but allows your server list to be in YAML format. (Otherwise it'll have to be JSON.).
 
-A pageant compatible key agent for SSH authentication will make your life easier. You can use OpenSSH formatted ID key pair files but to my knowledge the PHP-SSH2 extension cannot use encrypted private keys, which can be a big security risk if you are storing this instance outside of an unencrypted container.
+A pageant compatible key agent for SSH authentication will make your life easier. You can use OpenSSH formatted ID key pair files, but if they are encrypted with a password this will show up in the operating system's process list. The alternative is to use unencrypted keys, which comes with its own hazards. (This is why you should get a key agent working.)
 
 Requirements for servers you are deploying a centralised configuration to:
 
@@ -238,6 +238,7 @@ There are various command line switches you can use to control this behaviour, v
 * `--nopageant`: If set, do not attempt to use an key agent (pageant) for SSH autnetication.
 * `--sshkeypublic=file`: Specify an OpenSSH formatted public key ID file for SSH authentication.
 * `--sshkeyprivate=file`: Specify an OpenSSH formatted private key ID file for SSH authentication.
+* `--sshkeypassword=password`: Specify a password for an encrypted OpenSSH formatted private key ID file. (DANGEROUS! This will show up in the process list of the operating system!)
 * `--servers=name1,name2,...`: Only action the specified server names, split with a comma. For example to just work on Zeus and Hades, use `--servers=zeus,hades`.
 * `--serversfiletype=type`: Specify the configuration file format. (json, yml, or yaml.)
 * `--noupload`: Do not upload the compiled configuration to servers.

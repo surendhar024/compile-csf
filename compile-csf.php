@@ -32,6 +32,7 @@ printf("Configuration compiler for ConfigServer Firewall & LFD\n\n");
 $sshUsePageant      = true;     // Attempt to use an SSH key agent for authentication. (Pageant.)
 $sshKeyFilePublic   = null;     // SSH public key file to use for authentication. (OpenSSH format.)
 $sshKeyFilePrivate  = null;     // SSH private key file to use for authentication. (OpenSSH format.)
+$sshKeyFilePassword = null;     // SSH private key password if encrypted. (This will show in PS!)
 $serversToAction    = [];
 $serversToActionNum = 0;
 $serversFileType    = "yml";
@@ -52,7 +53,8 @@ function showUsage($exitCode = 0)
     printf("\n");
     printf("\t--nopageant                 Do not attempt to use an SSH key agent for authentication. (Pageant.)\n");
     printf("\t--sshkeypublic=file         SSH public key file to use for authentication. (OpenSSH format.)\n");
-    printf("\t--sshkeyprivate= file       SSH private key file to use for authentication. (OpenSSH format.)\n");
+    printf("\t--sshkeyprivate=file        SSH private key file to use for authentication. (OpenSSH format.)\n");
+    printf("\t--sshkeypassword=passowrd   SSH private key password if encrypted. (This will show in PS!)\n");
     printf("\n");
     printf("\t--servers=name1,name2,...   Only action specific servers. (Split multiple with a comma.)\n");
     printf("\t--serversfiletype=type      Server list file type. (Type can be json, yml, or yaml.)\n");
@@ -107,6 +109,15 @@ foreach ($argv as $i => $arg) {
                 $sshKeyFileVar  = sprintf("sshKeyFile%s", ucfirst($argKeyType));
                 $$sshKeyFileVar = $argSshKeyFile;
                 printf("SSH %s key file defined as \"%s\".\n", $argKeyType, $argSshKeyFile);
+                break;
+
+            case "sshkeyfilepassword":
+                if (!$sshKeyFilePassword = trim($argValue)) {
+                    printf("[Error] No servers specified.\n");
+                    showUsage(1);
+                }
+
+                printf("SSH private key password set.\n");
                 break;
 
             case "nopageant":
@@ -402,7 +413,7 @@ foreach ($servers as $s => $server) {
     if (boolval($sshUsePageant) && @ssh2_auth_agent($linkSsh, "root")) {
         printf("- - SSH connection authenticated. (Key agent.)\n");
         $linkSshAuthed = true;
-    } else if ($sshKeyFilePublic && $sshKeyFilePrivate && @ssh2_auth_pubkey_file($linkSsh, "root", $sshKeyFilePublic, $sshKeyFilePrivate)) {
+    } else if ($sshKeyFilePublic && $sshKeyFilePrivate && @ssh2_auth_pubkey_file($linkSsh, "root", $sshKeyFilePublic, $sshKeyFilePrivate, $sshKeyFilePassword)) {
         printf("- - SSH connection authenticated. (Key pair.)\n");
         $linkSshAuthed = true;
     } else {
