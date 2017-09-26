@@ -1,0 +1,38 @@
+zeus:
+    hostname:       "zeus.example.com"
+    container:      "esxi"
+    type:           "debian"
+    os:             "debian9"
+    ipv4:           "172.16.0.100"
+    ipv6:           "fd00:1:2:3::100"
+    portSsh:        1022
+    sshFingerprint: "E917FB8E51F2CAEC1FD3236CBD598248DADA6C83"
+
+    csfConf:
+        PT_LOAD_LEVEL:      6
+
+hades:
+    hostname:       "hades.example.com"
+    container:      "esxi"
+    type:           "debian"
+    os:             "debian9"
+    ipv4:           "172.16.0.101"
+    ipv6:           "fd00:1:2:3::101"
+    portSsh:        1022
+    sshFingerprint: "8E7BBEE0F6B7C0EA16E761408D97D6C33762A406"
+
+    csfConf:
+        PT_LOAD_LEVEL:      4
+
+poseidon:
+    hostname:       "poseidon.example.com"
+    container:      "esxi"
+    type:           "debian"
+    os:             "debian9"
+    ipv4:           "172.16.0.101"
+    ipv6:           "fd00:1:2:3::101"
+    portSsh:        1022
+    sshFingerprint: "5A5B395A5ED3370FAD9EC6C31E909B2099AEB560"
+
+    csfConf:
+        PT_LOAD_LEVEL:      12
