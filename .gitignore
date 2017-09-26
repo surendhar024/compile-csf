@@ -1,0 +1,14 @@
+!.gitkeep
+._*
+.DS_Store
+.buildpath
+.project
+.settings
+.idea
+Thumbs.db
+*.php~
+
+# Ignore server list files
+/compile-csf.json
+/compile-csf.yml
+/compile-csf.yaml
