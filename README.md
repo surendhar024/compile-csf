@@ -177,10 +177,12 @@ Use the included `get-ssh-fingerprint.php` CLI tool to help you retrieve this, f
 
 You should be provided with an output such as:
 
-```zeus.example.com:10022:
+```
+zeus.example.com:10022:
 
 Establishing SSH link...
-SSH fingerprint is: BC84EF63681040834FBFF2CF363B85AEE97902CF```
+SSH fingerprint is: BC84EF63681040834FBFF2CF363B85AEE97902CF
+```
 
 You would therefore use "**BC84EF63681040834FBFF2CF363B85AEE97902CF**" as the value for this option.
 
